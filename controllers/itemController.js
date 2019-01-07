@@ -12,6 +12,17 @@ const getAll = (req, res, next) => {
         .catch(generalError)
 }
 
+const addItem = (req, res, next) => {
+    const body = req.body
+    if(!body.name) return res.json({error: 'Please make sure the item has a name'})
+    return knex('item')
+        .insert(body)
+        .returning('*') 
+        .then(item => res.json({item: item[0]}))  
+        .catch(generalError) 
+}
+
 module.exports = {
     getAll,
+    addItem
 }

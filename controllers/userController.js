@@ -24,7 +24,7 @@ const getBackpacks = (req, res, next) => {
         .join('user', 'user.id', 'backpack.user_id')
         .then(user => {
             const reformatted = reformat.reformatBackpacks(user)
-            res.json({user: reformatted})
+            return res.json({user: reformatted})
         })
         // .then(items => res.json({items}))
         .catch(generalError)
@@ -33,7 +33,7 @@ const getBackpacks = (req, res, next) => {
 const getOne = (req, res, next) => {
     const id = req.params.id
     if(!Number(id)){
-        res.json({error: 'Please enter a valid id'})
+        return res.json({error: 'Please enter a valid id'})
     } else {
         return knex('user')
             .select('id', 'first_name', 'last_name')

@@ -27,7 +27,7 @@ const addPack = (req, res, next) => {
     // injectionCheck(body)
         // .then(body => {
             if(!body.user_id){
-                res.json({error: 'please make sure the user is in the database'})
+                return res.json({error: 'please make sure the user is in the database'})
             } else {
                 if(body.name !== ''){
                     return knex('backpack')

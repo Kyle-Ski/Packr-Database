@@ -9,7 +9,7 @@ const generalError = (err) => {
 
 const newUser = (req, res, next) => {
     if (req.body.email.includes(';') || req.body.first_name.includes(';') || req.body.last_name.includes(';') || req.body.password.includes(';')){
-        res.json({error: 'Please enter a email in the format: yourEmail@domian.com'})
+        return res.json({error: 'Please enter a email in the format: yourEmail@domian.com'})
     } else {
         return knex('user')
             .where('email', body.email)
