@@ -22,6 +22,18 @@ const getAll = (req, res, next) => {
         .catch(generalError)
 }
 
+const getOne = (req, res, next) => {
+    const id = req.params.id
+    if(!Number(id)) return res.json({error: 'Please make sure the id is correct'})
+    return knex('backpack')
+        .where('id', id)
+        .then(pack => {
+            if(!pack.length) return res.json({error: 'That pack doesn\'t exist.'})
+            return res.json({pack: pack[0]})
+        })
+        .catch(generalError)
+}
+
 const addPack = (req, res, next) => {
     const body = req.body
     // injectionCheck(body)
@@ -47,4 +59,5 @@ const addPack = (req, res, next) => {
 module.exports = {
     getAll,
     addPack,
+    getOne
 }
