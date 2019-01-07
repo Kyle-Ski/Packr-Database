@@ -23,7 +23,7 @@ const getBackpacks = (req, res, next) => {
         )
         .join('user', 'user.id', 'backpack.user_id')
         .then(user => {
-            const reformatted = reformat.reformatBackpacks(user)
+            const reformatted = reformat.reformatUsers(user)
             return res.json({user: reformatted})
         })
         // .then(items => res.json({items}))
