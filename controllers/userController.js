@@ -29,7 +29,43 @@ const getBackpacks = (req, res, next) => {
         // .then(items => res.json({items}))
         .catch(generalError)
 }
+
+const getOne = (req, res, next) => {
+    const id = req.params.id
+    if(!Number(id)){
+        res.json({error: 'Please enter a valid id'})
+    } else {
+        return knex('user')
+            .select('id', 'first_name', 'last_name')
+            .where({id: id})
+            .then(user => {
+                if(!user.length){
+                    res.json({error: 'That user doesn\'t exist yet.'})
+                } else {
+                    res.json({user})
+                }
+            })
+            .catch(generalError)
+    }
+}
+
+const postUser = (req, res, next) => {
+    const body = req.body
+    return knex('user')
+        .insert(body)
+        .returning('*')
+        .then(user => {
+            if(user.length === 1){
+                return res.json({user: user[0]})
+            } else {
+                return res.json({user: user})
+            }
+        })
+        .catch(generalError)
+}
 module.exports = {
     getAll,
     getBackpacks,
+    getOne,
+    postUser
 }

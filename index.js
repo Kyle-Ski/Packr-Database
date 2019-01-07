@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const port = process.env.PORT || 3222
 const cors = require('cors')
 const userRoutes = require('./routes/userRoutes')
-
+const auth = require('./routes/authRoutes')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
@@ -14,6 +14,7 @@ app.get('/', (req, res, next) => {
 })
 
 app.use('/users', userRoutes)
+app.use('/auth', auth)
 
 app.use(notFound);
 app.use(errorHandler);
