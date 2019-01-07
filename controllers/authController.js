@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const generalError = (err) => {
     console.error('Error:', err)
-    return res.json({error: err})
+    return res.json({error: `General handler in controller ${err}`})
 }
 
 const newUser = (req, res, next) => {

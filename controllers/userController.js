@@ -2,7 +2,7 @@ const knex = require('../db/connection')
 const reformat = require('../db/reformat')
 const generalError = (err) => {
     console.error('Error:', err)
-    return res.json({error: err})
+    return res.json({error: `General handler in controller ${err}`})
 }
 
 const getAll = (req, res, next) => {
