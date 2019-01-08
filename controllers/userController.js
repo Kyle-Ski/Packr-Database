@@ -35,17 +35,32 @@ const getOne = (req, res, next) => {
     if(!Number(id)){
         return res.json({error: 'Please enter a valid id'})
     } else {
-        return knex('user')
-            .select('id', 'first_name', 'last_name')
-            .where({id: id})
-            .then(user => {
-                if(!user.length){
-                    res.json({error: 'That user doesn\'t exist yet.'})
-                } else {
-                    res.json({user})
-                }
-            })
-            .catch(generalError)
+        return knex('backpack')
+        .where('user.id', id)
+        .select('backpack.id as backpack_id',
+                'backpack.name as backpack_name',
+                'user.id as user_id', 
+                'user.first_name',
+                'user.last_name'
+        )
+        .join('user', 'user.id', 'backpack.user_id')
+        .then(user => {
+            const reformatted = reformat.reformatUsers(user)
+            return res.json({user: reformatted})
+        })
+        // .then(items => res.json({items}))
+        .catch(generalError)
+        // return knex('user')
+        //     .select('id', 'first_name', 'last_name')
+        //     .where({id: id})
+        //     .then(user => {
+        //         if(!user.length){
+        //             res.json({error: 'That user doesn\'t exist yet.'})
+        //         } else {
+        //             res.json({user})
+        //         }
+        //     })
+        //     .catch(generalError)
     }
 }
 
