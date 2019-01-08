@@ -43,6 +43,8 @@ const reformatBackpacks = (packs) => {
             packById[currentId] = {
                 backpack_id: pack.pack_id,
                 backpack_name: pack.pack_name,
+                complete: pack.complete,
+                check: pack.check,
                 items: [{
                     item_id: pack.item_id,
                     item_name: pack.item_name,

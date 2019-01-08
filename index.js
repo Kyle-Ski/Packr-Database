@@ -6,6 +6,7 @@ const cors = require('cors')
 const userRoutes = require('./routes/userRoutes')
 const packRoutes = require('./routes/backpackRoutes')
 const itemRoutes = require('./routes/itemRoutes')
+const packItemRoutes = require('./routes/pack_itemsRoutes')
 const auth = require('./routes/authRoutes')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -18,6 +19,7 @@ app.get('/', (req, res, next) => {
 app.use('/users', userRoutes)
 app.use('/packs', packRoutes)
 app.use('/items', itemRoutes)
+app.use('/pack_items', packItemRoutes)
 app.use('/auth', auth)
 
 app.use(notFound);
