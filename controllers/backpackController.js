@@ -1,4 +1,5 @@
 const knex = require('../db/connection')
+const reformat = require('../db/reformat')
 
 const generalError = (err) => {
     console.error('Error:', err)
@@ -21,6 +22,7 @@ const getAll = (req, res, next) => {
         .then(backpacks => res.json({backpacks}))
         .catch(generalError)
 }
+
 
 const getOne = (req, res, next) => {
     const id = req.params.id
@@ -56,8 +58,10 @@ const addPack = (req, res, next) => {
         // .catch(generalError)
 }
 
+
+
 module.exports = {
     getAll,
     addPack,
-    getOne
+    getOne,
 }

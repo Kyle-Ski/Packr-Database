@@ -25,13 +25,14 @@ const getPackItems = (req, res, next) => {
             'backpack.name as pack_name',
             'backpack.id as pack_id',
             'backpack.complete',
-            'backpack.check'
+            'backpack.check',
+            'backpack.user_id'
         )
         .join('pack_items', 'pack_items.backpack_id', 'backpack.id')
         .join('item', 'item.id', 'pack_items.item_id')
         .then(packs => {
             const reformatted = reformat.reformatBackpacks(packs)
-            return res.json({backpacks: reformatted})
+            return res.json({backpack: reformatted[0]})
         })
         .catch(generalError)
 }
