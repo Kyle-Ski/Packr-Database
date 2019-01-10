@@ -38,12 +38,24 @@ const getPackItems = (req, res, next) => {
 }
 
 const addPackItem = (req, res, next) => {
-    if(!Number(req.body.backpack_id) || !Number(req.body.item_id)) return res.json({error: 'Please make sure the inputs are numbers'})
-    return knex('pack_items')
-        .insert({backpack_id: req.body.backpack_id, item_id: req.body.item_id})
-        .returning('*')
-        .then(item => res.json({item: item[0]}))
-        .catch(generalError)
+    if(!Number(req.body.backpack_id)) return res.json({error: 'Please make sure the inputs are numbers'})
+    if (req.body.item_id.length > 1){
+        let response = []
+        return Promise.all(req.body.item_id.map((item, i) => {
+             return knex('pack_items')
+                .insert({backpack_id: req.body.backpack_id, item_id: item.item_id})
+                .returning('*')
+                .then(res => response.push(res))
+                .catch(err => console.error('inside loop error:', err))
+        }))
+        .then(response => res.json({pack: response}))
+    } else {
+        return knex('pack_items')
+            .insert({backpack_id: req.body.backpack_id, item_id: req.body.item_id[0].item_id})
+            .returning('*')
+            .then(data => res.json({new: data[0]}))
+            .catch(err => console.error(err))
+    }
 }
 
 const deletePackItems = (req, res, next) => {

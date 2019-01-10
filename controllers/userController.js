@@ -50,17 +50,6 @@ const getOne = (req, res, next) => {
         })
         // .then(items => res.json({items}))
         .catch(generalError)
-        // return knex('user')
-        //     .select('id', 'first_name', 'last_name')
-        //     .where({id: id})
-        //     .then(user => {
-        //         if(!user.length){
-        //             res.json({error: 'That user doesn\'t exist yet.'})
-        //         } else {
-        //             res.json({user})
-        //         }
-        //     })
-        //     .catch(generalError)
     }
 }
 
