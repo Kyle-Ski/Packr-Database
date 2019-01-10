@@ -43,6 +43,39 @@ const newUser = (req, res, next) => {
     // }
 }
 
+const logIn = (req, res, next) => {
+    if(req.body.password.includes(';')) return res.json({error: 'Please enter a valid email'})
+    if(req.body.email.includes(';'))return res.json({error: 'Please enter a valid password'})
+    return knex('user') 
+        .where('user.email', req.body.email)
+        .then(user => {
+            if(!user.length) return res.json({error: 'That email doesn\'t exist, please enter a valid email'})
+            // const hashPass = user[0].password
+            // const match= bcrypt.compareSync(req.body.password, hashPass)
+            // if(match){
+            //     const payload = JSON.parse(JSON.stringify(user[0]))
+            //     delete payload.password
+            //     const token = jwt.sign(payload, process.env.TOKEN_SECRET)
+            //     res.json({ 
+            //         token: token,
+            //         user: payload
+            //     })
+            // } else {
+            //     res.json({error: 'Incorrect password, please try again'})
+            // }
+            console.log(user)
+            return res.json({
+                id: user[0].id,
+                first_name: user[0].first_name,
+                last_name: user[0].last_name
+            })
+                
+            
+        })
+        .catch(generalError)
+}
+
 module.exports = {
     newUser,
+    logIn
 }
