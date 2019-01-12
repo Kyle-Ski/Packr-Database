@@ -63,7 +63,6 @@ const logIn = (req, res, next) => {
             // } else {
             //     res.json({error: 'Incorrect password, please try again'})
             // }
-            console.log(user)
             return res.json({
                 id: user[0].id,
                 first_name: user[0].first_name,

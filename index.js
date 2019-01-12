@@ -9,7 +9,6 @@ const packRoutes = require('./routes/backpackRoutes')
 const itemRoutes = require('./routes/itemRoutes')
 const packItemRoutes = require('./routes/pack_itemsRoutes')
 const auth = require('./routes/authRoutes')
-const packr = require('./packr_model/model_routes')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
@@ -23,7 +22,6 @@ app.use('/packs', packRoutes)
 app.use('/items', itemRoutes)
 app.use('/pack_items', packItemRoutes)
 app.use('/auth', auth)
-app.use('/packr', packr)
 
 app.use(notFound);
 app.use(errorHandler);
