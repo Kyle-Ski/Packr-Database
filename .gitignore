@@ -76,3 +76,5 @@ typings/
 .DS_Store
 
 .packr_model_info.json  
+
+package-lock.json
